@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,7 +15,10 @@ public class List {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int Id;
 	private String title;
-	private int authorId;
+	@ManyToOne
+	@JoinColumn(name="authorId")
+	private User u;
+	//private int authorId;
 
 	public List() {
 	}
@@ -35,12 +39,27 @@ public class List {
 		this.title = title;
 	}
 
-	public int getAuthorId() {
-		return authorId;
+	public User getU() {
+		return u;
 	}
 
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+	public void setU(User u) {
+		this.u = u;
 	}
+
+	@Override
+	public String toString() {
+		return "List [Id=" + Id + ", title=" + title + ", userId=" + u.getId() + "]";
+	}
+
+	
+	
+//	public int getAuthorId() {
+//		return authorId;
+//	}
+//
+//	public void setAuthorId(int authorId) {
+//		this.authorId = authorId;
+//	}
 
 }

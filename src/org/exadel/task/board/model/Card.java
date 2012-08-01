@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +16,17 @@ public class Card {
 	private int id;
 	private String title;
 	private String content;
-	private int listId;
+	
 	private String type;
-	private int authorId;
+	
+	@ManyToOne
+	@JoinColumn (name = "authorId")
+	private User u;
+	
+	@ManyToOne
+	@JoinColumn (name = "listId")
+	private List list;
+	
 
 	public Card() {
 
@@ -47,13 +56,7 @@ public class Card {
 		this.content = content;
 	}
 
-	public int getListId() {
-		return listId;
-	}
-
-	public void setListId(int listId) {
-		this.listId = listId;
-	}
+	
 
 	public String getType() {
 		return type;
@@ -63,12 +66,32 @@ public class Card {
 		this.type = type;
 	}
 
-	public int getAuthorId() {
-		return authorId;
+	public User getU() {
+		return u;
 	}
 
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+	public void setU(User u) {
+		this.u = u;
 	}
+
+	public List getList() {
+		return list;
+	}
+
+	public void setList(List list) {
+		this.list = list;
+	}
+
+	@Override
+	public String toString() {
+		return "Card [id=" + id + ", title=" + title + ", content=" + content + ", type=" + type
+				+ ", userId=" + u.getId() + ", listId=" + list.getId() + "]";
+	}
+	
+	
+	
+	
+
+	
 
 }
