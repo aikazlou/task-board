@@ -1,41 +1,65 @@
 package org.exadel.task.board.model;
 
-public class List {
-	private Long Id;
-	private String Title;
-	private Long BoardId;
-	private Long AuthorId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-	public Long getId() {
+@Entity
+@Table(name = "List")
+public class List {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int Id;
+	private String title;
+	@ManyToOne
+	@JoinColumn(name="authorId")
+	private User u;
+	//private int authorId;
+
+	public List() {
+	}
+
+	public int getId() {
 		return Id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		Id = id;
 	}
 
 	public String getTitle() {
-		return Title;
+		return title;
 	}
 
 	public void setTitle(String title) {
-		Title = title;
+		this.title = title;
 	}
 
-	public Long getBoardId() {
-		return BoardId;
+	public User getU() {
+		return u;
 	}
 
-	public void setBoardId(Long boardId) {
-		BoardId = boardId;
+	public void setU(User u) {
+		this.u = u;
 	}
 
-	public Long getAuthorId() {
-		return AuthorId;
+	@Override
+	public String toString() {
+		return "List [Id=" + Id + ", title=" + title + ", userId=" + u.getId() + "]";
 	}
 
-	public void setAuthorId(Long authorId) {
-		AuthorId = authorId;
-	}
+	
+	
+//	public int getAuthorId() {
+//		return authorId;
+//	}
+//
+//	public void setAuthorId(int authorId) {
+//		this.authorId = authorId;
+//	}
 
 }

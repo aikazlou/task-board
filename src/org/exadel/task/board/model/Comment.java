@@ -1,33 +1,70 @@
 package org.exadel.task.board.model;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Comment")
 public class Comment {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int Id;
 
-	private Long Id;
-	private Long AuthorId;
-	private Long CardId;
+	@ManyToOne
+	@JoinColumn(name = "authorId")
+	private User u;
 
-	public Long getId() {
+	@ManyToOne
+	@JoinColumn(name = "cardId")
+	private Card card;
+
+	private String content;
+
+	public Comment() {
+	}
+
+	public int getId() {
 		return Id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		Id = id;
 	}
 
-	public Long getAuthorId() {
-		return AuthorId;
+	public String getContent() {
+		return content;
 	}
 
-	public void setAuthorId(Long authorId) {
-		AuthorId = authorId;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public Long getCardId() {
-		return CardId;
+	public User getU() {
+		return u;
 	}
 
-	public void setCardId(Long cardId) {
-		CardId = cardId;
+	public void setU(User u) {
+		this.u = u;
 	}
+
+	public Card getCard() {
+		return card;
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
+
+	@Override
+	public String toString() {
+		return "Comment [Id=" + Id + ", userId=" + u.getId() + ", cardId=" + card.getId() + ", content=" + content + "]";
+	}
+	
+	
 
 }
