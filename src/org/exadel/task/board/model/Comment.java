@@ -1,33 +1,55 @@
 package org.exadel.task.board.model;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Comment")
 public class Comment {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int Id;
+	private int authorId;
+	private int cardId;
+	private String content;
 
-	private Long Id;
-	private Long AuthorId;
-	private Long CardId;
+	public Comment() {
+	}
 
-	public Long getId() {
+	public int getId() {
 		return Id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		Id = id;
 	}
 
-	public Long getAuthorId() {
-		return AuthorId;
+	public int getAuthorId() {
+		return authorId;
 	}
 
-	public void setAuthorId(Long authorId) {
-		AuthorId = authorId;
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
 	}
 
-	public Long getCardId() {
-		return CardId;
+	public int getCardId() {
+		return cardId;
 	}
 
-	public void setCardId(Long cardId) {
-		CardId = cardId;
+	public void setCardId(int cardId) {
+		this.cardId = cardId;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 }
