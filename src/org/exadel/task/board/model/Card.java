@@ -1,5 +1,8 @@
 package org.exadel.task.board.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
@@ -8,17 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
-
-
 
 @Entity
 @Table(name = "Card")
 public class Card {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
 	private String title;
+
 	private String content;
 
 	private String type;
@@ -27,17 +30,23 @@ public class Card {
 	@JoinColumn(name = "authorId")
 	private User user;
 
-	@ManyToOne
-	@JoinColumn(name = "listId")
-	private CardList cardList;	
-
-	@OneToMany 
-	@JoinColumn (name  = "commentId")
-	private List<Comment> commentList;
-	
+	@OneToMany
+	@JoinColumn(name = "commentId")
+	private final List<Comment> comments = new LinkedList<Comment>();
 
 	public Card() {
+	}
 
+	public boolean addComment(Comment comment) {
+		return comments.add(comment);
+	}
+
+	public boolean removeComment(Comment comment) {
+		return comments.remove(comment);
+	}
+
+	public List<Comment> getComments() {
+		return comments;
 	}
 
 	public int getId() {
@@ -76,30 +85,14 @@ public class Card {
 		return user;
 	}
 
-	public void setU(User user) {
+	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public CardList getCardList() {
-		return cardList;
-	}
-
-	public void setList(CardList cardList) {
-		this.cardList = cardList;
-	}
-	
-	public List<Comment> getCommentList() {
-		return commentList;
-	}
-
-	public void setCommentList(List<Comment> commentList) {
-		this.commentList = commentList;
 	}
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", title=" + title + ", content=" + content + ", type=" + type
-				+ ", userId=" + user.getId() + ", listId=" + cardList.getId() + "]";
+		return "Card [id=" + id + ", title=" + title + ", content=" + content
+				+ ", type=" + type + ", userId=" + user.getId() + "]";
 	}
 
 }

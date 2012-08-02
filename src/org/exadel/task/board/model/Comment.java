@@ -19,11 +19,6 @@ public class Comment {
 	@JoinColumn(name = "authorId")
 	private User user;
 
-	@ManyToOne
-	@JoinColumn(name = "cardId")
-	private Card card;
-	
-
 	private String content;
 
 	public Comment() {
@@ -49,23 +44,14 @@ public class Comment {
 		return user;
 	}
 
-	public void setU(User user) {
+	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Card getCard() {
-		return card;
-	}
-
-	public void setCard(Card card) {
-		this.card = card;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [Id=" + id + ", userId=" + user.getId() + ", cardId=" + card.getId() + ", content=" + content + "]";
+		return "Comment [Id=" + id + ", userId=" + user.getId() + ", cardId="
+				+ ", content=" + content + "]";
 	}
-	
-	
 
 }

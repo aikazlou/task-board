@@ -9,6 +9,7 @@ public class SessionFactoryUtil {
 
 	public static SessionFactory buildSessionFactory() {
 		try {
+
 			Configuration cfg = new Configuration();
 			cfg.addAnnotatedClass(org.exadel.task.board.model.User.class);
 			cfg.addAnnotatedClass(org.exadel.task.board.model.Card.class);
@@ -16,7 +17,7 @@ public class SessionFactoryUtil {
 			cfg.addAnnotatedClass(org.exadel.task.board.model.CardList.class);
 			return cfg.configure().buildSessionFactory();
 
-		
+			// return new Configuration().configure().buildSessionFactory();
 		} catch (Throwable ex) {
 			// Make sure you log the exception, as it might be swallowed
 			System.err.println("Initial SessionFactory creation failed." + ex);

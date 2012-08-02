@@ -22,11 +22,11 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 	@Override
 	public PK create(T o) {
 		getSession();
-		session.beginTransaction();
+		
 
 		PK pk = (PK) session.save(o);
 
-		session.getTransaction().commit();
+		
 
 		return pk;
 	}
@@ -34,9 +34,9 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 	@Override
 	public T read(PK id) {
 		getSession();
-		session.beginTransaction();
+		
 		T res = (T) session.get(type, id);
-		session.getTransaction().commit();
+		
 		return res;
 
 	}
@@ -44,18 +44,18 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 	@Override
 	public void update(T o) {
 		getSession();
-		session.beginTransaction();
+		
 		session.update(o);
-		session.getTransaction().commit();
+		
 	}
 
 	@Override
 	public void delete(T o)
 	{
 		getSession();
-		session.beginTransaction();
+	
 		session.delete(o);
-		session.getTransaction().commit();
+		
 	}
 
 	public void getSession()
