@@ -6,22 +6,21 @@ import org.hibernate.Session;
 
 import org.exadel.task.board.*;
 
-public class GenericDaoHibernate<T, PK extends Serializable> implements GenericDao<T, PK>
-{
-
-	private Session session;
+public class GenericDaoHibernate<T, PK extends Serializable> implements
+		GenericDao<T, PK> {
 
 	private Class<T> type;
 
-	public GenericDaoHibernate(Class<T> type)
-	{
+	public GenericDaoHibernate(Class<T> type) {
 		this.type = type;
 
 	}
 
 	@Override
 	public PK create(T o) {
-		getSession();
+
+		final Session session = getSession();
+
 		session.beginTransaction();
 
 		PK pk = (PK) session.save(o);
@@ -33,7 +32,9 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 
 	@Override
 	public T read(PK id) {
-		getSession();
+
+		final Session session = getSession();
+
 		session.beginTransaction();
 		T res = (T) session.get(type, id);
 		session.getTransaction().commit();
@@ -43,25 +44,27 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 
 	@Override
 	public void update(T o) {
-		getSession();
+
+		final Session session = getSession();
+
 		session.beginTransaction();
 		session.update(o);
 		session.getTransaction().commit();
 	}
 
 	@Override
-	public void delete(T o)
-	{
-		getSession();
+	public void delete(T o) {
+
+		final Session session = getSession();
+
 		session.beginTransaction();
 		session.delete(o);
 		session.getTransaction().commit();
 	}
 
-	public void getSession()
-	{
+	public Session getSession() {
 
-		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		return SessionFactoryUtil.getSessionFactory().getCurrentSession();
 
 	}
 

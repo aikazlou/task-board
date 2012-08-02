@@ -1,27 +1,36 @@
 package org.exadel.task.board.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Comment")
-public class Comment {
+@Table(name = "\"CardList\"")
+public class CardList {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	private String title;
+
+	@OneToMany
+	@JoinColumn(name = "cardId")
+	private List<Card> cards = new LinkedList<Card>();
 
 	@ManyToOne
 	@JoinColumn(name = "authorId")
 	private User user;
 
-	private String content;
-
-	public Comment() {
+	public CardList() {
 	}
 
 	public int getId() {
@@ -32,12 +41,12 @@ public class Comment {
 		this.id = id;
 	}
 
-	public String getContent() {
-		return content;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public User getUser() {
@@ -48,10 +57,18 @@ public class Comment {
 		this.user = user;
 	}
 
+	public List<Card> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+
 	@Override
 	public String toString() {
-		return "Comment [Id=" + id + ", userId=" + user.getId() + ", cardId="
-				+ ", content=" + content + "]";
+		return "List [Id=" + id + ", title=" + title + ", userId="
+				+ user.getId() + "]";
 	}
 
 }

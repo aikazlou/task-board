@@ -1,35 +1,47 @@
 package org.exadel.task.board.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Card")
 public class Card {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
 	private String title;
+
 	private String content;
-	
+
 	private String type;
-	
+
 	@ManyToOne
-	@JoinColumn (name = "authorId")
-	private User u;
-	
-	@ManyToOne
-	@JoinColumn (name = "listId")
-	private List list;
-	
+	@JoinColumn(name = "authorId")
+	private User user;
+
+	@OneToMany
+	@JoinColumn(name = "commentId")
+	private List<Comment> comments;
 
 	public Card() {
+	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	public int getId() {
@@ -56,8 +68,6 @@ public class Card {
 		this.content = content;
 	}
 
-	
-
 	public String getType() {
 		return type;
 	}
@@ -66,32 +76,18 @@ public class Card {
 		this.type = type;
 	}
 
-	public User getU() {
-		return u;
+	public User getUser() {
+		return user;
 	}
 
-	public void setU(User u) {
-		this.u = u;
-	}
-
-	public List getList() {
-		return list;
-	}
-
-	public void setList(List list) {
-		this.list = list;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", title=" + title + ", content=" + content + ", type=" + type
-				+ ", userId=" + u.getId() + ", listId=" + list.getId() + "]";
+		return "Card [id=" + id + ", title=" + title + ", content=" + content
+				+ ", type=" + type + ", userId=" + user.getId() + "]";
 	}
-	
-	
-	
-	
-
-	
 
 }

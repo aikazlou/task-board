@@ -5,18 +5,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Column;
 
 @Entity
 @Table(name = "\"User\"")
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	
 	private int id;
+
 	private String name;
-	
-	public User() {}
+
+	public User() {
+	}
 
 	public int getId() {
 		return id;
@@ -38,9 +39,5 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + "]";
 	}
-
-	
-	
-	
 
 }
