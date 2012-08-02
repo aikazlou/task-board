@@ -2,6 +2,8 @@ package org.exadel.task.board.dao;
 
 import java.io.Serializable;
 
+import org.hibernate.Session;
+
 public interface GenericDao<T, PK extends Serializable> {
 
 	PK create(T newInstance);
@@ -11,4 +13,6 @@ public interface GenericDao<T, PK extends Serializable> {
 	void update(T transientObject);
 
 	void delete(T persistentObject);
+
+	Session getSession();
 }

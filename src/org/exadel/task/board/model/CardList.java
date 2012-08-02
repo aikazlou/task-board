@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,11 +33,11 @@ public class CardList {
 
 	public CardList() {
 	}
-	
+
 	public boolean addCard(Card card) {
 		return cards.add(card);
 	}
-	
+
 	public boolean removeCard(Card card) {
 		return cards.remove(card);
 	}

@@ -21,11 +21,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements
 
 		final Session session = getSession();
 
-		session.beginTransaction();
-
 		PK pk = (PK) session.save(o);
-
-		session.getTransaction().commit();
 
 		return pk;
 	}
@@ -35,9 +31,8 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements
 
 		final Session session = getSession();
 
-		session.beginTransaction();
-		T res = (T) session.get(type, id);
-		session.getTransaction().commit();
+		@SuppressWarnings("unchecked")
+		T res = (T) session.byId(type).load(id);
 		return res;
 
 	}
@@ -47,9 +42,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements
 
 		final Session session = getSession();
 
-		session.beginTransaction();
 		session.update(o);
-		session.getTransaction().commit();
 	}
 
 	@Override
@@ -57,11 +50,10 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements
 
 		final Session session = getSession();
 
-		session.beginTransaction();
 		session.delete(o);
-		session.getTransaction().commit();
 	}
 
+	@Override
 	public Session getSession() {
 
 		return SessionFactoryUtil.getSessionFactory().getCurrentSession();
