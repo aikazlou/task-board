@@ -24,13 +24,21 @@ public class CardList {
 
 	@OneToMany
 	@JoinColumn(name = "cardId")
-	private List<Card> cards = new LinkedList<Card>();
+	private final List<Card> cards = new LinkedList<Card>();
 
 	@ManyToOne
 	@JoinColumn(name = "authorId")
 	private User user;
 
 	public CardList() {
+	}
+	
+	public boolean addCard(Card card) {
+		return cards.add(card);
+	}
+	
+	public boolean removeCard(Card card) {
+		return cards.remove(card);
 	}
 
 	public int getId() {
@@ -59,10 +67,6 @@ public class CardList {
 
 	public List<Card> getCards() {
 		return cards;
-	}
-
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package org.exadel.task.board.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,17 +32,21 @@ public class Card {
 
 	@OneToMany
 	@JoinColumn(name = "commentId")
-	private List<Comment> comments;
+	private final List<Comment> comments = new LinkedList<Comment>();
 
 	public Card() {
 	}
 
-	public List<Comment> getComments() {
-		return comments;
+	public boolean addComment(Comment comment) {
+		return comments.add(comment);
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public boolean removeComment(Comment comment) {
+		return comments.remove(comment);
+	}
+
+	public List<Comment> getComments() {
+		return comments;
 	}
 
 	public int getId() {
