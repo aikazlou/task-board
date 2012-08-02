@@ -9,26 +9,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "List")
-public class List {
+@Table(name = "CardList")
+public class CardList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int Id;
+	private int id;
 	private String title;
 	@ManyToOne
-	@JoinColumn(name="authorId")
-	private User u;
-	//private int authorId;
+	@JoinColumn(name = "authorId")
+	private User user;
 
-	public List() {
+	public CardList() {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -39,27 +38,17 @@ public class List {
 		this.title = title;
 	}
 
-	public User getU() {
-		return u;
+	public User getUser() {
+		return user;
 	}
 
 	public void setU(User u) {
-		this.u = u;
+		this.user = u;
 	}
 
 	@Override
 	public String toString() {
-		return "List [Id=" + Id + ", title=" + title + ", userId=" + u.getId() + "]";
+		return "CardList [Id=" + id + ", title=" + title + ", userId=" + user.getId() + "]";
 	}
-
-	
-	
-//	public int getAuthorId() {
-//		return authorId;
-//	}
-//
-//	public void setAuthorId(int authorId) {
-//		this.authorId = authorId;
-//	}
 
 }
