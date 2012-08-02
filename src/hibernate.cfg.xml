@@ -9,9 +9,9 @@
 
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-		<property name="connection.url">jdbc:derby://localhost:1527/task-board</property>
-		<property name="connection.username">username</property>
-		<property name="connection.password">password</property>
+		<property name="connection.url">jdbc:derby://localhost:1527/Tables</property>
+		
+		<property name="connection.create">true</property>
 
 		<!-- SQL dialect -->
 		<property name="dialect">org.hibernate.dialect.DerbyDialect</property>
@@ -31,11 +31,11 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
 
-		<mapping class="com.exadel.task.board.Board" />
-		<mapping class="com.exadel.task.board.User" />
-		<mapping class="com.exadel.task.board.Card" />
-		<mapping class="com.exadel.task.board.Comment" />
-		<mapping class="com.exadel.task.board.List" />
+		
+		<mapping class="org.exadel.task.board.model.User" />
+		<mapping class="org.exadel.task.board.model.Card" />
+		<mapping class="org.exadel.task.board.model.Comment" />
+		<mapping class="org.exadel.task.board.model.CardList" />
 
 
 	</session-factory>

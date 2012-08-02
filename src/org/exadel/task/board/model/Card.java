@@ -32,7 +32,7 @@ public class Card {
 	private CardList cardList;	
 
 	@OneToMany 
-	@JoinColumn (name  = "cardId")
+	@JoinColumn (name  = "commentId")
 	private List<Comment> commentList;
 	
 
