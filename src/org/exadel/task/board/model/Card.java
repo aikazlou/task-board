@@ -6,7 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
+
+
 
 @Entity
 @Table(name = "Card")
@@ -16,16 +20,20 @@ public class Card {
 	private int id;
 	private String title;
 	private String content;
-	
+
 	private String type;
-	
+
 	@ManyToOne
-	@JoinColumn (name = "authorId")
-	private User u;
-	
+	@JoinColumn(name = "authorId")
+	private User user;
+
 	@ManyToOne
-	@JoinColumn (name = "listId")
-	private List list;
+	@JoinColumn(name = "listId")
+	private CardList cardList;	
+
+	@OneToMany 
+	@JoinColumn (name  = "cardId")
+	private List<Comment> commentList;
 	
 
 	public Card() {
@@ -56,8 +64,6 @@ public class Card {
 		this.content = content;
 	}
 
-	
-
 	public String getType() {
 		return type;
 	}
@@ -66,32 +72,34 @@ public class Card {
 		this.type = type;
 	}
 
-	public User getU() {
-		return u;
+	public User getUser() {
+		return user;
 	}
 
-	public void setU(User u) {
-		this.u = u;
+	public void setU(User user) {
+		this.user = user;
 	}
 
-	public List getList() {
-		return list;
+	public CardList getCardList() {
+		return cardList;
 	}
 
-	public void setList(List list) {
-		this.list = list;
+	public void setList(CardList cardList) {
+		this.cardList = cardList;
+	}
+	
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
 	}
 
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", title=" + title + ", content=" + content + ", type=" + type
-				+ ", userId=" + u.getId() + ", listId=" + list.getId() + "]";
+				+ ", userId=" + user.getId() + ", listId=" + cardList.getId() + "]";
 	}
-	
-	
-	
-	
-
-	
 
 }

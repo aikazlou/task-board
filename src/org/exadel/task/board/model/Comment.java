@@ -13,15 +13,16 @@ import javax.persistence.Table;
 public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int Id;
+	private int id;
 
 	@ManyToOne
 	@JoinColumn(name = "authorId")
-	private User u;
+	private User user;
 
 	@ManyToOne
 	@JoinColumn(name = "cardId")
 	private Card card;
+	
 
 	private String content;
 
@@ -29,11 +30,11 @@ public class Comment {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getContent() {
@@ -44,12 +45,12 @@ public class Comment {
 		this.content = content;
 	}
 
-	public User getU() {
-		return u;
+	public User getUser() {
+		return user;
 	}
 
-	public void setU(User u) {
-		this.u = u;
+	public void setU(User user) {
+		this.user = user;
 	}
 
 	public Card getCard() {
@@ -62,7 +63,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [Id=" + Id + ", userId=" + u.getId() + ", cardId=" + card.getId() + ", content=" + content + "]";
+		return "Comment [Id=" + id + ", userId=" + user.getId() + ", cardId=" + card.getId() + ", content=" + content + "]";
 	}
 	
 	
