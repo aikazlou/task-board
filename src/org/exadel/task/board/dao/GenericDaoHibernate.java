@@ -1,35 +1,27 @@
 package org.exadel.task.board.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.hibernate.Query;
-
 import org.hibernate.Session;
 
-public class GenericDaoHibernate<T, PK extends Serializable> implements
-		GenericDao<T, PK> {
+public class GenericDaoHibernate<T> implements GenericDao<T> {
 
 	private Class<T> type;
 
 	public GenericDaoHibernate(Class<T> type) {
 		this.type = type;
-
 	}
 
 	@Override
-	public PK create(T o) {
+	public int create(T o) {
 
 		final Session session = getSession();
 
-		@SuppressWarnings("unchecked")
-		PK pk = (PK) session.save(o);
+		int pk = (Integer) session.save(o);
 
 		return pk;
 	}
 
 	@Override
-	public T read(PK id) {
+	public T read(int id) {
 
 		final Session session = getSession();
 
