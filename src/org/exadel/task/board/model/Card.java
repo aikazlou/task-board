@@ -41,8 +41,10 @@ public class Card {
 	@JoinColumn(name = "AUTHOR_ID")
 	private User user;
 
-	@OneToMany(cascade = { CascadeType.REMOVE })
-	@LazyCollection (LazyCollectionOption.FALSE)
+
+	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
+	@LazyCollection(LazyCollectionOption.FALSE)
+
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "CARD_ID", nullable = false)
 	
@@ -60,7 +62,7 @@ public class Card {
 	}
 
 	public List<Comment> getComments() {
-		return comments;
+		return new LinkedList<Comment>(comments);
 	}
 
 	public int getId() {

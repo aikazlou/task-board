@@ -24,7 +24,7 @@ public class TaskService {
 		return id;
 	}
 
-	public User getUser(Integer id) {
+	public User getUser(int id) {
 		beginTransaction();
 
 		final User user = userDao.read(id);
@@ -42,7 +42,7 @@ public class TaskService {
 		return id;
 	}
 
-	public CardList getList(Integer id) {
+	public CardList getList(int id) {
 		beginTransaction();
 
 		CardList list = listDao.read(id);
@@ -62,7 +62,7 @@ public class TaskService {
 		return id;
 	}
 
-	public Card getCard(Integer id) {
+	public Card getCard(int id) {
 		beginTransaction();
 
 		Card card = cardDao.read(id);
@@ -80,7 +80,7 @@ public class TaskService {
 		return id;
 	}
 
-	public Comment getComment(Integer id) {
+	public Comment getComment(int id) {
 		beginTransaction();
 
 		Comment comment = commentDao.read(id);
@@ -90,18 +90,23 @@ public class TaskService {
 	}
 
 	public boolean moveCard(Card card, CardList fromList, CardList toList) {
+		beginTransaction();
 
-		if (!fromList.contains(card)) {
+		final Card mergedCard = (Card) userDao.getSession().merge(card);
+		final CardList mergedFromList = (CardList) userDao.getSession().merge(
+				fromList);
+		final CardList mergedToList = (CardList) userDao.getSession().merge(
+				toList);
+
+		if (!mergedFromList.contains(mergedCard)) {
 			return false;
 		}
-		if (toList.contains(card)) {
+		if (mergedToList.contains(mergedCard)) {
 			return true;
 		}
 
-		beginTransaction();
-
-		fromList.removeCard(card);
-		toList.addCard(card);
+		mergedFromList.removeCard(mergedCard);
+		mergedToList.addCard(mergedCard);
 
 		commit();
 
@@ -138,7 +143,6 @@ public class TaskService {
 	}
 
 	private void commit() {
-
 		userDao.getSession().getTransaction().commit();
 	}
 
