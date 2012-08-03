@@ -32,14 +32,11 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 	@Override
 	public T read(PK id) {
 
-		getSession();
-
-		T res = (T) session.get(type, id);
 
 		final Session session = getSession();
 
-//		@SuppressWarnings("unchecked")
-//		T res = (T) session.byId(type).load(id);
+		@SuppressWarnings("unchecked")
+		T res = (T) session.byId(type).load(id);
 
 		return res;
 
