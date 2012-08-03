@@ -46,6 +46,10 @@ public class CardList {
 	public boolean removeCard(Card card) {
 		return cards.remove(card);
 	}
+	
+	public boolean contains( Card card) {
+		return cards.contains(card);
+	}
 
 	public int getId() {
 		return id;

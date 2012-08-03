@@ -10,8 +10,6 @@ import org.hibernate.Session;
 public class GenericDaoHibernate<T, PK extends Serializable> implements GenericDao<T, PK>
 {
 
-	private Session session;
-
 	private Class<T> type;
 
 	public GenericDaoHibernate(Class<T> type)
@@ -33,8 +31,6 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 
 	@Override
 	public T read(PK id) {
-
-
 		final Session session = getSession();
 
 		@SuppressWarnings("unchecked")
@@ -46,20 +42,14 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 
 	@Override
 	public void update(T o) {
-
-		getSession();
-
 		final Session session = getSession();
-
 		session.update(o);
-
 	}
 
 	@Override
 	public void delete(T o) {
 
 		final Session session = getSession();
-
 		session.delete(o);
 
 	}
@@ -67,8 +57,8 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 	@Override
 	public Session getSession() {
 
-		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
-return session;
+		return SessionFactoryUtil.getSessionFactory().getCurrentSession();
+
 	}
 
 }

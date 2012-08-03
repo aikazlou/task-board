@@ -7,6 +7,7 @@ public class SessionFactoryUtil {
 
 	private static final SessionFactory sessionFactory = buildSessionFactory();
 
+	@SuppressWarnings("deprecation")
 	public static SessionFactory buildSessionFactory() {
 		try {
 

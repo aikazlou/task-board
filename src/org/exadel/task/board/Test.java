@@ -42,9 +42,10 @@ public class Test {
 		userDao.getSession().beginTransaction();
 		userDao.create(user);
 		
-		cardDao.create(card1);
-		
 		listDao.create(list);
+		
+		cardDao.create(card1);	
+		
 		
 		userDao.getSession().getTransaction().commit();
 		
