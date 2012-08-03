@@ -46,6 +46,8 @@ public class TaskService {
 		beginTransaction();
 
 		CardList list = listDao.read(id);
+		
+		//CardList res = (CardList)listDao.getSession().merge(list);
 
 		closeSession();
 		return list;
