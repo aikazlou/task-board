@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "CARDS")
@@ -37,7 +40,8 @@ public class Card {
 	@JoinColumn(name = "AUTHOR_ID")
 	private User user;
 
-	@OneToMany(cascade = { CascadeType.REMOVE })
+	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "CARD_ID", nullable = false)
 	private final List<Comment> comments = new LinkedList<Comment>();
@@ -54,7 +58,7 @@ public class Card {
 	}
 
 	public List<Comment> getComments() {
-		return comments;
+		return new LinkedList<Comment>(comments);
 	}
 
 	public int getId() {

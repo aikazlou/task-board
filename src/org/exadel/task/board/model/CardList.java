@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,8 @@ public class CardList {
 	@Column(name = "TITLE")
 	private String title;
 
-	@OneToMany(cascade = { CascadeType.REMOVE })
+	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "LIST_ID", nullable = false)
 	private final List<Card> cards = new LinkedList<Card>();
@@ -38,16 +40,16 @@ public class CardList {
 
 	public CardList() {
 	}
-	
+
 	public boolean addCard(Card card) {
 		return cards.add(card);
 	}
-	
+
 	public boolean removeCard(Card card) {
 		return cards.remove(card);
 	}
-	
-	public boolean contains( Card card) {
+
+	public boolean contains(Card card) {
 		return cards.contains(card);
 	}
 
@@ -76,7 +78,7 @@ public class CardList {
 	}
 
 	public List<Card> getCards() {
-		return cards;
+		return new LinkedList<Card>(cards);
 	}
 
 	@Override
