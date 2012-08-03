@@ -29,13 +29,13 @@ public class ModelTest {
 		final Card card1 = new Card();
 		card1.setTitle("First Card");
 		card1.setType("Task");
-		card1.setContent("sfkjfls");
+		card1.setContent("asdf");
 		card1.setUser(user);
 
 		final Card card2 = new Card();
 		card2.setTitle("Second Card");
 		card2.setType("Task");
-		card2.setContent("sfkjfls");
+		card2.setContent("qwer");
 		card2.setUser(user);
 
 		CardList list = new CardList();
@@ -45,10 +45,8 @@ public class ModelTest {
 		list.addCard(card2);
 
 		userDao.create(user);
-		cardDao.create(card1);
-		cardDao.create(card2);
 		listDao.create(list);
-
+		
 		userDao.getSession().getTransaction().commit();
 
 		userDao.getSession().beginTransaction();
@@ -56,6 +54,7 @@ public class ModelTest {
 		list = listDao.read(list.getId());
 		List<Card> cards = list.getCards();
 
+		
 		System.out.println(card1);
 		System.out.println(card2);
 
@@ -67,8 +66,6 @@ public class ModelTest {
 
 		userDao.getSession().beginTransaction();
 
-		cardDao.delete(card1);
-		cardDao.delete(card2);
 		listDao.delete(list);
 		userDao.delete(user);
 

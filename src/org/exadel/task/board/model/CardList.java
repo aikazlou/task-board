@@ -3,8 +3,9 @@ package org.exadel.task.board.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,22 +14,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.*;
+
 @Entity
-@Table(name = "\"CardList\"")
+@Table(name = "LISTS")
 public class CardList {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	@Column(name = "TITLE")
 	private String title;
 
-	@OneToMany
-	@JoinColumn(name = "cardId")
+	@OneToMany(cascade = { CascadeType.REMOVE })
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@JoinColumn(name = "LIST_ID", nullable = false)
 	private final List<Card> cards = new LinkedList<Card>();
 
 	@ManyToOne
-	@JoinColumn(name = "authorId")
+	@JoinColumn(name = "AUTHOR_ID")
 	private User user;
 
 	public CardList() {

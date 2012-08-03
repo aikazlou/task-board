@@ -1,5 +1,6 @@
 package org.exadel.task.board.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
@@ -9,16 +10,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Comment")
+@Table(name = "COMMENTS")
 public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "authorId")
+	@JoinColumn(name = "AUTHOR_ID")
 	private User user;
 
+	@Column(name = "CONTENT")
 	private String content;
 
 	public Comment() {
