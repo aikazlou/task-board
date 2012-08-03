@@ -21,48 +21,55 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 
 	@Override
 	public PK create(T o) {
-		getSession();
-		
+
+		final Session session = getSession();
 
 		PK pk = (PK) session.save(o);
-
-		
 
 		return pk;
 	}
 
 	@Override
 	public T read(PK id) {
+
 		getSession();
-		
+
 		T res = (T) session.get(type, id);
-		
+
+		final Session session = getSession();
+
+//		@SuppressWarnings("unchecked")
+//		T res = (T) session.byId(type).load(id);
+
 		return res;
 
 	}
 
 	@Override
 	public void update(T o) {
+
 		getSession();
-		
+
+		final Session session = getSession();
+
 		session.update(o);
-		
+
 	}
 
 	@Override
-	public void delete(T o)
-	{
-		getSession();
-	
+	public void delete(T o) {
+
+		final Session session = getSession();
+
 		session.delete(o);
-		
+
 	}
 
-	public void getSession()
-	{
+	@Override
+	public Session getSession() {
 
 		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
-
+return session;
 	}
 
 }
