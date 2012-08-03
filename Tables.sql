@@ -1,80 +1,43 @@
-connect 'jdbc:derby:Tables;create=true';
+connect 'jdbc:derby://localhost:1527/Tables;create=true';
 
-create table "User" (
-	id integer not null
+create table USERS (
+	ID integer not null
 	generated always as identity (start with 1, increment by 1),
+
 	name varchar(255) not null,
 	primary key (id)connect 'jdbc:derby:Tables;create=true';
-create table "User" (
-	id integer not null
-	generated always as identity (start with 1, increment by 1),
-	name varchar(255) not null,
-	primary key (id)
 );
 
-create table "CardList" (
-	id integer not null
+
+create table LISTS (
+	ID integer not null
 	generated always as identity (start with 1, increment by 1),
-	title varchar(255) not null,
-	authorId integer not null,
-	primary key (id),
-	foreign key (authorId) references "User"(id)
+	TITLE varchar(255) not null,
+	AUTHOR_ID integer not null,
+	primary key (ID),
+	foreign key (AUTHOR_ID) references USERS(ID)
 );
 
-create table "Card" (
-	id integer not null
+create table CARDS (
+	ID integer not null
 	generated always as identity (start with 1, increment by 1),
-	title varchar(255) not null,
-	type varchar(255) not null,
-	content long varchar not null,
-	listId integer not null,
-	authorId integer not null,
-	primary key (id),
-	foreign key (listId) references "CardList"(id),
-	foreign key (authorId) references "User"(id)
+	TITLE varchar(255) not null,
+	TYPE varchar(255) not null,
+	CONTENT long varchar not null,
+	LIST_ID integer not null,
+	AUTHOR_ID integer not null,
+	primary key (ID),
+	foreign key (LIST_ID) references LISTS(ID),
+	foreign key (AUTHOR_ID) references USERS(ID)
 );
 
-create table "Comment" (
-	id integer not null
+create table COMMENTS (
+	ID integer not null
 	generated always as identity (start with 1, increment by 1),
-	content long varchar not null,
-	cardId integer not null,
-	authorId integer not null,
-	primary key (id),
-	foreign key (cardId) references "Card"(id),
-	foreign key (authorId) references "User"(id)
-);
-);
-
-create table "List" (
-	id integer not null
-	generated always as identity (start with 1, increment by 1),
-	title varchar(255) not null,
-	authorId integer not null,
-	primary key (id),
-	foreign key (authorId) references "User"(id)
-);
-
-create table "Card" (
-	id integer not null
-	generated always as identity (start with 1, increment by 1),
-	title varchar(255) not null,
-	type varchar(255) not null,
-	content long varchar not null,
-	listId integer not null,
-	authorId integer not null,
-	primary key (id),
-	foreign key (listId) references "List"(id),
-	foreign key (authorId) references "User"(id)
-);
-
-create table "Comment" (
-	id integer not null
-	generated always as identity (start with 1, increment by 1),
-	content long varchar not null,
-	cardId integer not null,
-	authorId integer not null,
-	primary key (id),
-	foreign key (cardId) references "Card"(id),
-	foreign key (authorId) references "User"(id)
+	CONTENT long varchar not null,
+	CARD_ID integer not null,
+	AUTHOR_ID integer not null,
+	primary key (ID),
+	foreign key (CARD_ID) references CARDS(ID),
+	foreign key (AUTHOR_ID) references USERS(ID)
 );
