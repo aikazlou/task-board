@@ -3,17 +3,35 @@ package org.exadel.task.board.controller;
 import org.exadel.task.board.dao.*;
 import org.exadel.task.board.model.*;
 
-public class ServiceDao {
-	private GenericDao<User, Integer> userDao = new GenericDaoHibernate<User, Integer>(User.class);
+public class DaoService {
 
-	private GenericDao<CardList, Integer> listDao = new GenericDaoHibernate<CardList, Integer>(
+	private GenericDao<User> userDao = new GenericDaoHibernate<User>(User.class);
+	private GenericDao<CardList> listDao = new GenericDaoHibernate<CardList>(
 			CardList.class);
-
-	private GenericDao<Card, Integer> cardDao = new GenericDaoHibernate<Card, Integer>(Card.class);
-
-	private GenericDao<Comment, Integer> commentDao = new GenericDaoHibernate<Comment, Integer>(
+	private GenericDao<Card> cardDao = new GenericDaoHibernate<Card>(Card.class);
+	private GenericDao<Comment> commentDao = new GenericDaoHibernate<Comment>(
 			Comment.class);
 
+	public DaoService() {
+	}
+
+	public void beginTransaction() {
+		userDao.getSession().beginTransaction();
+	}
+
+	public void commit() {
+
+		userDao.getSession().getTransaction().commit();
+	}
+
+	public void rollback() {
+		userDao.getSession().getTransaction().rollback();
+	}
+
+	public void closeSession() {
+		userDao.getSession().close();
+	}
+	
 	public Integer createUser(User user) {
 		 return userDao.create(user);
 	}

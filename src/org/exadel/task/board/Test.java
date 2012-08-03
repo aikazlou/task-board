@@ -8,13 +8,13 @@ import org.exadel.task.board.model.User;
 public class Test {
 	public static void main(String[] args) {
 
-		GenericDaoHibernate<User, Integer> userDao = new GenericDaoHibernate<User, Integer>(
+		GenericDaoHibernate<User> userDao = new GenericDaoHibernate<User>(
 				User.class);
 
-		GenericDaoHibernate<CardList, Integer> listDao = new GenericDaoHibernate<CardList, Integer>(
+		GenericDaoHibernate<CardList> listDao = new GenericDaoHibernate<CardList>(
 				CardList.class);
 
-		GenericDaoHibernate<Card, Integer> cardDao = new GenericDaoHibernate<Card, Integer>(
+		GenericDaoHibernate<Card> cardDao = new GenericDaoHibernate<Card>(
 				Card.class);
 
 		final User user = new User();

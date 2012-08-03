@@ -12,14 +12,10 @@ public class ModelTest {
 
 	@Test
 	public void firstTest() {
-		GenericDao<User, Integer> userDao = new GenericDaoHibernate<User, Integer>(
-				User.class);
+		GenericDao<User> userDao = new GenericDaoHibernate<User>(User.class);
 
-		GenericDao<CardList, Integer> listDao = new GenericDaoHibernate<CardList, Integer>(
+		GenericDao<CardList> listDao = new GenericDaoHibernate<CardList>(
 				CardList.class);
-
-		GenericDao<Card, Integer> cardDao = new GenericDaoHibernate<Card, Integer>(
-				Card.class);
 
 		userDao.getSession().beginTransaction();
 
@@ -71,4 +67,5 @@ public class ModelTest {
 
 		userDao.getSession().getTransaction().commit();
 	}
+
 }
