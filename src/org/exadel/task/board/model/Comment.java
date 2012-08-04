@@ -16,14 +16,19 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "AUTHOR_ID")
-	private User user;
-
 	@Column(name = "CONTENT")
 	private String content;
 
+	@ManyToOne
+	@JoinColumn(name = "AUTHOR_ID")
+	private User author;
+	
 	public Comment() {
+	}
+	
+	public Comment(String content, User author) {
+		this.content = content;
+		this.author = author;
 	}
 
 	public int getId() {
@@ -42,17 +47,17 @@ public class Comment {
 		this.content = content;
 	}
 
-	public User getUser() {
-		return user;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [Id=" + id + ", userId=" + user.getId() + ", cardId="
+		return "Comment [Id=" + id + ", authorId=" + author.getId() + ", cardId="
 				+ ", content=" + content + "]";
 	}
 

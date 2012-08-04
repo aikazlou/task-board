@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,15 +29,15 @@ public class Card {
 	@Column(name = "TITLE")
 	private String title;
 
-	@Column(name = "CONTENT")
-	private String content;
-
 	@Column(name = "TYPE")
 	private String type;
 
+	@Column(name = "CONTENT")
+	private String content;
+
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_ID")
-	private User user;
+	private User author;
 
 	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -47,6 +46,13 @@ public class Card {
 	private final List<Comment> comments = new LinkedList<Comment>();
 
 	public Card() {
+	}
+
+	public Card(String title, String type, String content, User author) {
+		this.title = title;
+		this.type = type;
+		this.content = content;
+		this.author = author;
 	}
 
 	public boolean addComment(Comment comment) {
@@ -93,18 +99,18 @@ public class Card {
 		this.type = type;
 	}
 
-	public User getUser() {
-		return user;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", title=" + title + ", content=" + content
-				+ ", type=" + type + ", userId=" + user.getId() + "]";
+		return "Card [id=" + id + ", title=" + title + ", type=" + type
+				+ ", content=" + content + ", authorId=" + author.getId() + "]";
 	}
 
 }

@@ -1,20 +1,12 @@
 package org.exadel.task.board.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.hibernate.Query;
-
 import org.hibernate.Session;
-
 
 public class GenericDaoHibernate<T> implements GenericDao<T> {
 
-
 	private Class<T> type;
 
-	public GenericDaoHibernate(Class<T> type)
-	{
+	public GenericDaoHibernate(Class<T> type) {
 		this.type = type;
 	}
 
@@ -29,7 +21,6 @@ public class GenericDaoHibernate<T> implements GenericDao<T> {
 	}
 
 	@Override
-
 	public T read(int id) {
 
 		final Session session = getSession();

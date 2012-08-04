@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,9 +35,14 @@ public class CardList {
 
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_ID")
-	private User user;
+	private User author;
 
 	public CardList() {
+	}
+
+	public CardList(String title, User author) {
+		this.title = title;
+		this.author = author;
 	}
 
 	public boolean addCard(Card card) {
@@ -69,12 +73,12 @@ public class CardList {
 		this.title = title;
 	}
 
-	public User getUser() {
-		return user;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	public List<Card> getCards() {
@@ -83,8 +87,8 @@ public class CardList {
 
 	@Override
 	public String toString() {
-		return "List [Id=" + id + ", title=" + title + ", userId="
-				+ user.getId() + "]";
+		return "List [id=" + id + ", title=" + title + ", authorId="
+				+ author.getId() + "]";
 	}
 
 }
