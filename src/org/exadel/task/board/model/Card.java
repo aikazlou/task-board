@@ -106,7 +106,7 @@ public class Card {
 	public void setAuthor(User author) {
 		this.author = author;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", title=" + title + ", type=" + type

@@ -28,7 +28,7 @@ public class TaskServiceTest {
 	public void createListTest() {
 
 		final Card card = new Card("First", "Task", "abc", user);
-
+		
 		CardList list = new CardList("First", user);
 		list.addCard(card);
 
@@ -50,8 +50,8 @@ public class TaskServiceTest {
 	@Test
 	public void moveCardTest() {
 
-		final Card card = new Card("First", "Task", "abc", user);
-
+		Card card = new Card("First", "Task", "abc", user);
+		
 		CardList list1 = new CardList("First", user);
 		list1.addCard(card);
 
@@ -70,8 +70,11 @@ public class TaskServiceTest {
 		taskService.deleteList(list2);
 		taskService.deleteUser(user);
 
-		assertEquals(list1.getCards().size(), 0);
-		assertEquals(list2.getCards().size(), 1);
+		assertFalse(list1.contains(card));
+		assertTrue(list2.contains(card));
+
+//		assertEquals(list1.getCards().size(), 0);
+//		assertEquals(list2.getCards().size(), 1);
 	}
 
 }

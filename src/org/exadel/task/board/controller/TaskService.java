@@ -107,7 +107,7 @@ public class TaskService {
 		mergedToList.addCard(mergedCard);
 
 		commit();
-
+		
 		return true;
 
 	}
