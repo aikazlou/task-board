@@ -7,17 +7,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NaturalId;
+
 @Entity
 @Table(name = "USERS")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@NaturalId
+	@Column (name = "LOGIN")
+	private final String login;
+	
+	@NaturalId 
+	@Column (name = "TIME_STAMP")
+	private final long timestamp = System.currentTimeMillis();
 
 	@Column(name = "NAME")
 	private String name;
+	
+//	User() {
+//		// default constructor for ORM
+//	}
 
-	public User() {
+	public User(String login) {
+		this.login = login;
 	}
 
 	public int getId() {
@@ -40,5 +55,35 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (timestamp != other.timestamp)
+			return false;
+		return true;
+	}
+
+	
 
 }

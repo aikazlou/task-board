@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "CARDS")
@@ -28,6 +29,15 @@ public class Card {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	@NaturalId
+	@ManyToOne
+	@JoinColumn(name = "AUTHOR_ID")
+	private final  User user;
+	
+	@NaturalId 
+	@Column (name = "TIME_STAMP")
+	private final long timestamp = System.currentTimeMillis();
+	
 	@Column(name = "TITLE")
 	private String title;
 
@@ -37,20 +47,22 @@ public class Card {
 	@Column(name = "TYPE")
 	private String type;
 
-	@ManyToOne
-	@JoinColumn(name = "AUTHOR_ID")
-	private User user;
-
+	
 
 	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
 	@LazyCollection(LazyCollectionOption.FALSE)
-
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "CARD_ID", nullable = false)
-	
 	private final List<Comment> comments = new LinkedList<Comment>();
 
-	public Card() {
+		
+
+//	Card() {
+//		// default constructor for ORM
+//	}
+		
+	public Card(User user) {
+		this.user = user;
 	}
 
 	public boolean addComment(Comment comment) {
@@ -67,10 +79,6 @@ public class Card {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
@@ -101,14 +109,42 @@ public class Card {
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", title=" + title + ", content=" + content
 				+ ", type=" + type + ", userId=" + user.getId() + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Card other = (Card) obj;
+		if (timestamp != other.timestamp)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
+	
+	
 
 }
