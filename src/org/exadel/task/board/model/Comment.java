@@ -17,6 +17,7 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
 	
 	@NaturalId
 	@ManyToOne
@@ -28,9 +29,9 @@ public class Comment {
 	private final long timestamp = System.currentTimeMillis();
 	
 
-	
 	@Column(name = "CONTENT")
 	private String content;
+
 
 	public Comment(User user) {
 		this.user = user;
@@ -40,9 +41,7 @@ public class Comment {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 
 	public String getContent() {
 		return content;
@@ -52,10 +51,7 @@ public class Comment {
 		this.content = content;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
+	
 
 	@Override
 	public int hashCode() {
@@ -84,10 +80,10 @@ public class Comment {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Comment [Id=" + id + ", userId=" + user.getId() + ", cardId="
+		return "Comment [Id=" + id + " ,"+" cardId="
 				+ ", content=" + content + "]";
 	}
 	

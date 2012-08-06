@@ -113,8 +113,13 @@ public class TaskService {
 		mergedToList.addCard(mergedCard);
 
 		commit();
+<<<<<<< HEAD
 
 		return mergedCard;
+=======
+		
+		return true;
+>>>>>>> branch 'dev' of https://github.com/aikazlou/task-board.git
 
 	}
 

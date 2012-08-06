@@ -11,6 +11,6 @@ public interface GenericDao<T> {
 	void update(T transientObject);
 
 	void delete(T persistentObject);
-	
+
 	public Session getSession();
 }

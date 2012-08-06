@@ -19,30 +19,19 @@ public class ModelTest {
 
 		userDao.getSession().beginTransaction();
 
-		final User user = new User();
-		user.setName("Alex");
+		final User user = new User("Alex");
 
-		final Card card1 = new Card();
-		card1.setTitle("First Card");
-		card1.setType("Task");
-		card1.setContent("asdf");
-		card1.setUser(user);
+		final Card card1 = new Card("FirstCard", "Task", "asdf", user);
 
-		final Card card2 = new Card();
-		card2.setTitle("Second Card");
-		card2.setType("Task");
-		card2.setContent("qwer");
-		card2.setUser(user);
+		final Card card2 = new Card("Second Card", "Task", "qwer", user);
 
-		CardList list = new CardList();
-		list.setTitle("First List");
-		list.setUser(user);
+		CardList list = new CardList("First List", user);
 		list.addCard(card1);
 		list.addCard(card2);
 
 		userDao.create(user);
 		listDao.create(list);
-		
+
 		userDao.getSession().getTransaction().commit();
 
 		userDao.getSession().beginTransaction();
@@ -50,7 +39,6 @@ public class ModelTest {
 		list = listDao.read(list.getId());
 		List<Card> cards = list.getCards();
 
-		
 		System.out.println(card1);
 		System.out.println(card2);
 

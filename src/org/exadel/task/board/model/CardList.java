@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,6 +44,7 @@ public class CardList {
 
 	public CardList(User user) {
 		this.user = user;
+
 	}
 
 	public boolean addCard(Card card) {
@@ -71,9 +71,6 @@ public class CardList {
 		this.title = title;
 	}
 
-	public User getUser() {
-		return user;
-	}
 
 	public List<Card> getCards() {
 		return new LinkedList<Card>(cards);
@@ -81,8 +78,7 @@ public class CardList {
 
 	@Override
 	public String toString() {
-		return "List [Id=" + id + ", title=" + title + ", userId="
-				+ user.getId() + "]";
+		return "List [id=" + id + ", title=" + title + "]";
 	}
 
 	@Override

@@ -35,6 +35,7 @@ public class User {
 		this.login = login;
 	}
 
+	
 	public int getId() {
 		return id;
 	}

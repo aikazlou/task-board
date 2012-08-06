@@ -24,18 +24,18 @@ public class Test {
 		card1.setTitle("First Card");
 		card1.setType("Task");
 		card1.setContent("sfkjfls");
-		card1.setUser(user);
+		card1.setAuthor(user);
 		
 		final Card card2 = new Card();
 		card2.setTitle("Second Card");
 		card2.setType("Task");
 		card2.setContent("sfkjfls");
-		card2.setUser(user);
+		card2.setAuthor(user);
 				
 
 		final CardList list = new CardList();
 		list.setTitle("First List");
-		list.setUser(user);
+		list.setAuthor(user);
 		list.addCard(card1);
 		
 		
