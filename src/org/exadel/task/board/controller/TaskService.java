@@ -1,5 +1,6 @@
 package org.exadel.task.board.controller;
 
+import java.lang.Exception;
 import org.exadel.task.board.dao.*;
 import org.exadel.task.board.model.*;
 
@@ -46,8 +47,8 @@ public class TaskService {
 		beginTransaction();
 
 		CardList list = listDao.read(id);
-		
-		//CardList res = (CardList)listDao.getSession().merge(list);
+
+		// CardList res = (CardList)listDao.getSession().merge(list);
 
 		closeSession();
 		return list;
@@ -89,7 +90,7 @@ public class TaskService {
 		return comment;
 	}
 
-	public boolean moveCard(Card card, CardList fromList, CardList toList) {
+	public Card moveCard(Card card, CardList fromList, CardList toList) throws Exception {
 		beginTransaction();
 
 		final Card mergedCard = (Card) userDao.getSession().merge(card);
@@ -99,10 +100,13 @@ public class TaskService {
 				toList);
 
 		if (!mergedFromList.contains(mergedCard)) {
-			return false;
+			
+			throw new Exception();
+
 		}
 		if (mergedToList.contains(mergedCard)) {
-			return true;
+			
+			return mergedCard;
 		}
 
 		mergedFromList.removeCard(mergedCard);
@@ -110,7 +114,7 @@ public class TaskService {
 
 		commit();
 
-		return true;
+		return mergedCard;
 
 	}
 

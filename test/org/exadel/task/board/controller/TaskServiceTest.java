@@ -16,7 +16,6 @@ public class TaskServiceTest {
 	private TaskService taskService = new TaskService();
 
 	@Test
-	
 	public void createUserTest() {
 		final User user = new User();
 		user.setName("Irina");
@@ -54,36 +53,78 @@ public class TaskServiceTest {
 		assertEquals(comments.size(), 0);
 
 	}
-	
+
 	@Test
 	public void createListTest() {
+
+		User user = new User();
+		user.setName("Ason");
+		taskService.createUser(user);
+
+		CardList list = new CardList();
+		list.setTitle("My list");
+		list.setUser(user);
+
+		Card card = new Card();
+		card.setContent("Lalala");
+		card.setTitle("My Card");
+		card.setType("fgh");
+		card.setUser(user);
+
+		list.addCard(card);
+
+		int id1 = taskService.createList(list);
+		CardList list1 = taskService.getList(id1);
+
+		List<Comment> listComment = list1.getCards().get(0).getComments();
+
+		assertEquals(list1.getCards().get(0).toString(), card.toString());
+
+	}
+
+	@Test
+	public void moveCardTest() throws Exception {
 		
 		User user = new User();
 		user.setName("Ason");
 		taskService.createUser(user);
+
+		CardList list1 = new CardList();
+		list1.setTitle("My list1");
+		list1.setUser(user);
+		
+		CardList list2 = new CardList();
+		list2.setTitle("My list2");
+		list2.setUser(user);
 		
 		
-		CardList list = new CardList();
-		list.setTitle("My list");
-		list.setUser(user);
 		
 		Card card = new Card();
 		card.setContent("Lalala");
 		card.setTitle("My Card");
 		card.setType("fgh");
 		card.setUser(user);
+
+		list1.addCard(card);
 		
-		list.addCard(card);
-		
-		int id1 = taskService.createList(list);
-		CardList list1 = taskService.getList(id1);
-		
-		List <Comment> listComment = list1.getCards().get(0).getComments();
-		
-		assertEquals(list1.getCards().get(0).toString(),card.toString());
+		taskService.createList(list1);
+		taskService.createList(list2);
 		
 		
+		assertEquals(list1.contains(card),true);
 		
+		Card movedCard = taskService.moveCard(card, list1, list2);
+		
+		
+		CardList test = taskService.getList(list1.getId());
+		
+		
+	//	assertEquals(test.contains(movedCard),false);
+		
+		CardList test1 = taskService.getList(list2.getId());
+		assertEquals(test1.contains(movedCard),true);
+		
+
 	}
 
 }
