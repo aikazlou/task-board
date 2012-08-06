@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,11 +30,11 @@ public class Card {
 	@NaturalId
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_ID")
-	private final  User user;
+	private User user;
 	
 	@NaturalId 
 	@Column (name = "TIME_STAMP")
-	private final long timestamp = System.currentTimeMillis();
+	private long timestamp;
 	
 	@Column(name = "TITLE")
 	private String title;
@@ -59,15 +58,27 @@ public class Card {
 
 		
 
-//	Card() {
-//		// default constructor for ORM
-//	}
+	Card() {
+		// default constructor for ORM
+		
+	}
 		
 	public Card(User user) {
 		this.user = user;
+		timestamp = System.currentTimeMillis();
 
 	}
 	
+	
+	
+
+	public Card(User user, String title, String type, String content) {
+		this.user = user;
+		this.title = title;
+		this.type = type;
+		this.content = content;
+		timestamp = System.currentTimeMillis();
+	}
 
 	public boolean addComment(Comment comment) {
 		return comments.add(comment);

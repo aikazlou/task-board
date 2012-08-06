@@ -29,17 +29,13 @@ public class TaskServiceTest {
 	}
 
 	@Test
-<<<<<<< HEAD
-	public void createListTest1() {
-		final User user = new User();
-		user.setName("Alexander");
-=======
-	public void createListTest() {
->>>>>>> branch 'dev' of https://github.com/aikazlou/task-board.git
 
-		final Card card = new Card("First", "Task", "abc", user);
+	public void createListTest() {
+
+
+		final Card card = new Card(user,"First", "Task", "abc");
 		
-		CardList list = new CardList("First", user);
+		CardList list = new CardList(user,"First");
 		list.addCard(card);
 
 		taskService.createUser(user);
@@ -58,14 +54,14 @@ public class TaskServiceTest {
 	}
 
 	@Test
-	public void moveCardTest() {
+	public void moveCardTest() throws Exception {
 
-		Card card = new Card("First", "Task", "abc", user);
+		Card card = new Card(user,"First", "Task", "abc");
 		
-		CardList list1 = new CardList("First", user);
+		CardList list1 = new CardList(user,"First");
 		list1.addCard(card);
 
-		CardList list2 = new CardList("Second", user);
+		CardList list2 = new CardList(user,"Second");
 
 		taskService.createUser(user);
 		taskService.createList(list1);
@@ -87,77 +83,6 @@ public class TaskServiceTest {
 //		assertEquals(list2.getCards().size(), 1);
 	}
 
-	@Test
-	public void createListTest() {
 
-		User user = new User();
-		user.setName("Ason");
-		taskService.createUser(user);
-
-		CardList list = new CardList();
-		list.setTitle("My list");
-		list.setUser(user);
-
-		Card card = new Card();
-		card.setContent("Lalala");
-		card.setTitle("My Card");
-		card.setType("fgh");
-		card.setUser(user);
-
-		list.addCard(card);
-
-		int id1 = taskService.createList(list);
-		CardList list1 = taskService.getList(id1);
-
-		List<Comment> listComment = list1.getCards().get(0).getComments();
-
-		assertEquals(list1.getCards().get(0).toString(), card.toString());
-
-	}
-
-	@Test
-	public void moveCardTest() throws Exception {
-		
-		User user = new User();
-		user.setName("Ason");
-		taskService.createUser(user);
-
-		CardList list1 = new CardList();
-		list1.setTitle("My list1");
-		list1.setUser(user);
-		
-		CardList list2 = new CardList();
-		list2.setTitle("My list2");
-		list2.setUser(user);
-		
-		
-		
-		Card card = new Card();
-		card.setContent("Lalala");
-		card.setTitle("My Card");
-		card.setType("fgh");
-		card.setUser(user);
-
-		list1.addCard(card);
-		
-		taskService.createList(list1);
-		taskService.createList(list2);
-		
-		
-		assertEquals(list1.contains(card),true);
-		
-		Card movedCard = taskService.moveCard(card, list1, list2);
-		
-		
-		CardList test = taskService.getList(list1.getId());
-		
-		
-	//	assertEquals(test.contains(movedCard),false);
-		
-		CardList test1 = taskService.getList(list2.getId());
-		assertEquals(test1.contains(movedCard),true);
-		
-
-	}
 
 }

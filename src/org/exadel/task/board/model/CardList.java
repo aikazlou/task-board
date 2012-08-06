@@ -27,11 +27,11 @@ public class CardList {
 	@NaturalId
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_ID")
-	private final User user;
+	private User user;
 
 	@NaturalId
 	@Column(name = "TIME_STAMP")
-	private final long timestamp = System.currentTimeMillis();
+	private long timestamp;
 
 	@Column(name = "TITLE")
 	private String title;
@@ -44,8 +44,25 @@ public class CardList {
 
 	public CardList(User user) {
 		this.user = user;
+		timestamp = System.currentTimeMillis();
 
 	}
+	
+	CardList() {
+		//default constructor for ORM
+	}
+	
+	
+
+	public CardList(User user, String title) {
+		
+		this.user = user;
+		this.title = title;
+		timestamp = System.currentTimeMillis();
+		
+	}
+
+
 
 	public boolean addCard(Card card) {
 		return cards.add(card);

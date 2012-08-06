@@ -18,21 +18,22 @@ public class User {
 	
 	@NaturalId
 	@Column (name = "LOGIN")
-	private final String login;
+	private  String login;
 	
 	@NaturalId 
 	@Column (name = "TIME_STAMP")
-	private final long timestamp = System.currentTimeMillis();
+	private  long timestamp;
 
 	@Column(name = "NAME")
 	private String name;
 	
-//	User() {
-//		// default constructor for ORM
-//	}
+	User() {
+		// default constructor for ORM
+	}
 
 	public User(String login) {
 		this.login = login;
+		timestamp = System.currentTimeMillis();
 	}
 
 	

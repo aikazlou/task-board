@@ -22,11 +22,11 @@ public class Comment {
 	@NaturalId
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_ID")
-	private final  User user;
+	private User user;
 	
 	@NaturalId 
 	@Column (name = "TIME_STAMP")
-	private final long timestamp = System.currentTimeMillis();
+	private long timestamp;
 	
 
 	@Column(name = "CONTENT")
@@ -35,6 +35,7 @@ public class Comment {
 
 	public Comment(User user) {
 		this.user = user;
+		timestamp = System.currentTimeMillis();
 	}
 
 	public int getId() {
