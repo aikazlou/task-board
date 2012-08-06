@@ -31,23 +31,19 @@ public class Card {
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_ID")
 	private User user;
-	
-	@NaturalId 
-	@Column (name = "TIME_STAMP")
+
+	@NaturalId
+	@Column(name = "TIME_STAMP")
 	private long timestamp;
-	
+
 	@Column(name = "TITLE")
 	private String title;
 
 	@Column(name = "TYPE")
 	private String type;
 
-
 	@Column(name = "CONTENT")
 	private String content;
-
-
-
 
 	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -55,22 +51,15 @@ public class Card {
 	@JoinColumn(name = "CARD_ID", nullable = false)
 	private final List<Comment> comments = new LinkedList<Comment>();
 
-
-		
-
 	Card() {
 		// default constructor for ORM
-		
 	}
-		
+
 	public Card(User user) {
 		this.user = user;
 		timestamp = System.currentTimeMillis();
 
 	}
-	
-	
-	
 
 	public Card(User user, String title, String type, String content) {
 		this.user = user;
@@ -120,11 +109,10 @@ public class Card {
 		this.type = type;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", title=" + title + ", type=" + type
-				+ ", content=" + content +"]";
+				+ ", content=" + content + "]";
 	}
 
 	@Override
@@ -154,8 +142,5 @@ public class Card {
 			return false;
 		return true;
 	}
-
-	
-	
 
 }

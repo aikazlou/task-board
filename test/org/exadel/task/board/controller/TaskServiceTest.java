@@ -14,31 +14,29 @@ import org.junit.Test;
 public class TaskServiceTest {
 
 	private final TaskService taskService = new TaskService();
-	private final User user = new User("Ivanov");
 
 	@Test
 	public void createUserTest() {
 
-		int id = taskService.createUser(user);
+		final User user = taskService.createUser("FirstLogin", "Ivanov");
 
-		final User user1 = taskService.getUser(id);
+		final User user1 = taskService.getUser(user.getId());
 
 		taskService.deleteUser(user1);
-		assertEquals(user.toString(), user1.toString());
+		assertEquals("FirstLogin", user1.getLogin());
+		assertEquals("Ivanov", user1.getName());
 
 	}
 
 	@Test
-
 	public void createListTest() {
 
+		final User user = taskService.createUser("SecondLogin", "Ivanov");
+		final Card card = new Card(user, "First", "Task", "abc");
 
-		final Card card = new Card(user,"First", "Task", "abc");
-		
-		CardList list = new CardList(user,"First");
+		CardList list = new CardList(user, "First");
 		list.addCard(card);
 
-		taskService.createUser(user);
 		taskService.createList(list);
 
 		list = taskService.getList(list.getId());
@@ -54,16 +52,26 @@ public class TaskServiceTest {
 	}
 
 	@Test
-	public void moveCardTest() throws Exception {
+	public void moveCardTest() {
 
-		Card card = new Card(user,"First", "Task", "abc");
-		
-		CardList list1 = new CardList(user,"First");
+		final User user = taskService.createUser("ThirdLogin", "Ivanov");
+		final Card card = new Card(user, "First", "Task", "abc");
+
+		CardList list1 = new CardList(user, "First");
 		list1.addCard(card);
 
-		CardList list2 = new CardList(user,"Second");
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		taskService.createUser(user);
+		CardList list2 = new CardList(user, "Second");
+		if (list1.equals(list2)) {
+			System.out.println("list1 equals list2");
+		}
+
 		taskService.createList(list1);
 		taskService.createList(list2);
 
@@ -79,10 +87,8 @@ public class TaskServiceTest {
 		assertFalse(list1.contains(card));
 		assertTrue(list2.contains(card));
 
-//		assertEquals(list1.getCards().size(), 0);
-//		assertEquals(list2.getCards().size(), 1);
+		// assertEquals(list1.getCards().size(), 0);
+		// assertEquals(list2.getCards().size(), 1);
 	}
-
-
 
 }

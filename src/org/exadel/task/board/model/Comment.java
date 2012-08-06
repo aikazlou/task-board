@@ -18,31 +18,35 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	
 	@NaturalId
 	@ManyToOne
 	@JoinColumn(name = "AUTHOR_ID")
 	private User user;
-	
-	@NaturalId 
-	@Column (name = "TIME_STAMP")
+
+	@NaturalId
+	@Column(name = "TIME_STAMP")
 	private long timestamp;
-	
 
 	@Column(name = "CONTENT")
 	private String content;
 
+	Comment() {
+	}
 
 	public Comment(User user) {
 		this.user = user;
 		timestamp = System.currentTimeMillis();
 	}
 
+	public Comment(User user, String content) {
+		this.user = user;
+		this.content = content;
+		timestamp = System.currentTimeMillis();
+	}
+
 	public int getId() {
 		return id;
 	}
-
-	
 
 	public String getContent() {
 		return content;
@@ -51,8 +55,6 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -81,14 +83,11 @@ public class Comment {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Comment [Id=" + id + " ,"+" cardId="
-				+ ", content=" + content + "]";
+		return "Comment [Id=" + id + " ," + " cardId=" + ", content=" + content
+				+ "]";
 	}
-	
-	
-
 
 }

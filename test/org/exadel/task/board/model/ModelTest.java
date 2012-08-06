@@ -19,13 +19,20 @@ public class ModelTest {
 
 		userDao.getSession().beginTransaction();
 
-		final User user = new User("Alex");
+		final User user = new User("MyLogin", "Alex");
 
-		final Card card1 = new Card("FirstCard", "Task", "asdf", user);
+		final Card card1 = new Card(user, "FirstCard", "Task", "asdf");
+		
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 
-		final Card card2 = new Card("Second Card", "Task", "qwer", user);
+		final Card card2 = new Card(user, "Second Card", "Task", "qwer");
 
-		CardList list = new CardList("First List", user);
+		CardList list = new CardList(user, "First List");
 		list.addCard(card1);
 		list.addCard(card2);
 

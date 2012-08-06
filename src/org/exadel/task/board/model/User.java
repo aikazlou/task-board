@@ -15,18 +15,18 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	@NaturalId
-	@Column (name = "LOGIN")
-	private  String login;
-	
-	@NaturalId 
-	@Column (name = "TIME_STAMP")
-	private  long timestamp;
+	@Column(name = "LOGIN")
+	private String login;
+
+	@NaturalId
+	@Column(name = "TIME_STAMP")
+	private long timestamp;
 
 	@Column(name = "NAME")
 	private String name;
-	
+
 	User() {
 		// default constructor for ORM
 	}
@@ -36,21 +36,26 @@ public class User {
 		timestamp = System.currentTimeMillis();
 	}
 
-	
+	public User(String login, String name) {
+		this.login = login;
+		this.name = name;
+		timestamp = System.currentTimeMillis();
+	}
+
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getLogin() {
+		return login;
 	}
-
-	public String getName() {
-		return name;
-	}
-
+	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -85,7 +90,5 @@ public class User {
 			return false;
 		return true;
 	}
-
-	
 
 }

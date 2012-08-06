@@ -42,27 +42,23 @@ public class CardList {
 	@JoinColumn(name = "LIST_ID", nullable = false)
 	private final List<Card> cards = new LinkedList<Card>();
 
+	CardList() {
+		// default constructor for ORM
+	}
+
 	public CardList(User user) {
 		this.user = user;
 		timestamp = System.currentTimeMillis();
 
 	}
-	
-	CardList() {
-		//default constructor for ORM
-	}
-	
-	
 
 	public CardList(User user, String title) {
-		
+
 		this.user = user;
 		this.title = title;
 		timestamp = System.currentTimeMillis();
-		
+
 	}
-
-
 
 	public boolean addCard(Card card) {
 		return cards.add(card);
@@ -87,7 +83,6 @@ public class CardList {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public List<Card> getCards() {
 		return new LinkedList<Card>(cards);
@@ -125,7 +120,5 @@ public class CardList {
 			return false;
 		return true;
 	}
-	
-	
 
 }

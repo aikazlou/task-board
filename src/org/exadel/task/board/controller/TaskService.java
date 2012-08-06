@@ -1,8 +1,11 @@
 package org.exadel.task.board.controller;
 
-import java.lang.Exception;
-import org.exadel.task.board.dao.*;
-import org.exadel.task.board.model.*;
+import org.exadel.task.board.dao.GenericDao;
+import org.exadel.task.board.dao.GenericDaoHibernate;
+import org.exadel.task.board.model.Card;
+import org.exadel.task.board.model.CardList;
+import org.exadel.task.board.model.Comment;
+import org.exadel.task.board.model.User;
 
 public class TaskService {
 
@@ -25,10 +28,30 @@ public class TaskService {
 		return id;
 	}
 
+	public User createUser(String login, String name) {
+		beginTransaction();
+
+		final User user = new User(login, name);
+		userDao.create(user);
+
+		commit();
+		return user;
+	}
+
 	public User getUser(int id) {
 		beginTransaction();
 
 		final User user = userDao.read(id);
+
+		closeSession();
+		return user;
+	}
+
+	public User getUser(String login) {
+		beginTransaction();
+
+		final User user = (User) userDao.getSession().byNaturalId(User.class)
+				.using("login", login).load();
 
 		closeSession();
 		return user;
@@ -90,7 +113,7 @@ public class TaskService {
 		return comment;
 	}
 
-	public Card moveCard(Card card, CardList fromList, CardList toList) throws Exception {
+	public boolean moveCard(Card card, CardList fromList, CardList toList) {
 		beginTransaction();
 
 		final Card mergedCard = (Card) userDao.getSession().merge(card);
@@ -100,27 +123,18 @@ public class TaskService {
 				toList);
 
 		if (!mergedFromList.contains(mergedCard)) {
-			
-			throw new Exception();
-
+			return false;
 		}
 		if (mergedToList.contains(mergedCard)) {
-			
-			return mergedCard;
+			return true;
 		}
 
 		mergedFromList.removeCard(mergedCard);
 		mergedToList.addCard(mergedCard);
 
 		commit();
-<<<<<<< HEAD
 
-		return mergedCard;
-=======
-		
 		return true;
->>>>>>> branch 'dev' of https://github.com/aikazlou/task-board.git
-
 	}
 
 	public void deleteUser(User user) {
